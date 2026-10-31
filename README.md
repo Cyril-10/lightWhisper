@@ -107,7 +107,7 @@ To build *natively* on the ARM machine itself, just run `./build.sh` there.
 -h, --help
 ```
 
-## How the streaming works (20-second version)
+## How the streaming works
 
 1. The whole file is decoded to 16 kHz mono floats (ffmpeg subprocess, or the
    built-in WAV parser as a fallback).
