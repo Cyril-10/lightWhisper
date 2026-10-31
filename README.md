@@ -73,7 +73,7 @@ First run downloads the model automatically:
 # or pre-fetch:  ./scripts/fetch-model.sh tiny
 ```
 
-### Build for ARM64 (aarch64) Linux — e.g. Raspberry Pi or Windows-on-ARM WSL2
+### Build for ARM64 (aarch64) Linux (e.g. Windows-on-ARM WSL2)
 
 On any x86-64 Linux you can cross-compile the ARM binary:
 
