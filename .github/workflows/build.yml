@@ -1,0 +1,44 @@
+name: build
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            arch: x86_64
+            extra: ""
+          - os: ubuntu-22.04
+            arch: aarch64
+            extra: "sudo apt-get update -qq && sudo apt-get install -y -qq g++-aarch64-linux-gnu && "
+            cmake_flags: "-DCMAKE_TOOLCHAIN_FILE=cmake/aarch64-linux-gnu.toolchain.cmake"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq build-essential cmake
+          ${{ matrix.extra }}
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DLW_STATIC=ON -DLW_PORTABLE=ON ${{ matrix.cmake_flags }}
+      - name: Build
+        run: cmake --build build -j"$(nproc)"
+      - name: Verify
+        run: |
+          file build/lw-whisper
+          build/lw-whisper --help | head -3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lw-whisper-${{ matrix.arch }}
+          path: build/lw-whisper

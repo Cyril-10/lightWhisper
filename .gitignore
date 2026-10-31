@@ -1,0 +1,9 @@
+build-*/
+dist/
+models/*.bin
+*.srt
+*.txt
+!third_party/whisper.cpp/samples/
+
+# dev scratch - not part of the release
+live-v2/
