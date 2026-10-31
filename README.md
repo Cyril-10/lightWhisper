@@ -122,7 +122,7 @@ Latency is one utterance (typical caption behavior): with pauses ≈ 0.5 s or
 more you see each line as it finishes; for a wall of unbroken speech it comes
 out in one block.
 
-## Models (choose your tradeoff)
+## Models
 
 | alias     | params  | ggml size | realtime speed (CPU, 4+ threads) |
 |-----------|---------|-----------|----------------------------------|
